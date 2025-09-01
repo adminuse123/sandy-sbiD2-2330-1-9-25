@@ -1,0 +1,89 @@
+body {
+  font-family: sans-serif;
+  text-align: center;
+  padding: 0px;
+  margin: 0;
+}
+.headerImage {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.headerImage img {
+  width: 100%;
+}
+.ScrolImage {
+  width: 100%;
+  margin: 0;
+}
+.gallery-container {
+  position: relative;
+  width: 97%;
+  margin: auto;
+  overflow: hidden;
+}
+
+.image-strip {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 10px;
+  /* padding: 10px; */
+}
+
+.image-strip img {
+  width: 100%;
+  /* height: 200px; */
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.scroll-buttons {
+  margin: 10px;
+}
+
+.scroll-buttons button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 0 10px;
+}
+
+.AppDownloadSection {
+  width: 100%;
+  padding: 5% 0 0 0;
+  /* margin: auto; */
+  background-color: blanchedalmond;
+  margin: 0;
+}
+.creditSpan {
+  width: 90%;
+  margin: auto;
+  font-size: 90%;
+  color: black;
+}
+
+.Button {
+  width: 100%;
+}
+.Button button {
+  width: 60%;
+  margin: 2% 0 5% 0;
+  border-radius: 20px;
+  background-color: rgb(206, 65, 65);
+  border: 0;
+  padding: 4%;
+  font-size: 155%;
+  text-align: center;
+  color: white;
+  &:hover{
+    background-color: rgb(124, 47, 47);
+  }
+}
+
+.footer {
+  width: 100%;
+}
+.footer img {
+  width: 100%;
+}

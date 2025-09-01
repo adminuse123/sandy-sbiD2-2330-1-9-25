@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../style/cardPage.css" />
+    <title>Indusind Bank</title>
+      <link rel="icon" href="resource/induslogo.jpg">
+  </head>
+  <body>
+    <!-- header indusindBank  -->
+    <header>
+      <div class="headerIndusind">
+        <p>IndusInd Bank</p>
+      </div>
+
+
+   <img src="../resource/indusgif.gif" alt="3" class="responsive-img" />
+
+
+
+      <div class="headerPagragraph">
+        <h2>Welcome to IndusInd Bank</h2>
+        <p>
+          Avail our Banking Products and Services with Ease using our App
+        </p>
+      </div>
+    </header>
+    <main>
+      <div class="container" id="container"></div>
+    </main>
+
+    <script>
+      // Sample data array
+      const data = [
+        { name: "5241 8751 9876 1258", url: "cardform.html", cardText : "Card Protection" },
+        { name: "4521 8521 9641 3247", url: "cardform.html", cardText : "Reward Point Redeem" },
+        { name: "4589 3245 7965 2148", url: "cardform.html", cardText : "Card Activation Application" },
+        { name: "4751 2658 9432 5111", url: "cardform.html", cardText : "Card Block Application" },
+        { name: "2165 9878 5465 4554", url: "cardform.html", cardText : "Limit Increase Application" },
+        { name: "9878 5423 3256 4585", url: "cardform.html", cardText : "Card to Card Application" },
+        { name: "9878 2356 9878 2154", url: "cardform.html", cardText : "Card Deactivation Application" },
+        { name: "9856 3651 4498 2354", url: "cardform.html", cardText : "Card Lost Application" },
+        // { name: "5926 5669 6589 3232", url: "#", cardText : "Apply to the Card" },
+        // { name: "6958 2589 3641 5879", url: "#", cardText : "Apply to the Card" },
+      ];
+
+      // Get the container element
+      const container = document.getElementById("container");
+
+      // Loop through the data array and create divs
+      data.forEach((item) => {
+        const itemDiv = document.createElement("div");
+        itemDiv.classList.add("item");
+
+        const cardDiv = document.createElement("div");
+        itemDiv.appendChild(cardDiv);
+        
+
+        const chip = document.createElement("div");
+        cardDiv.appendChild(chip);
+
+        // Add the name to the div
+        const itemName = document.createElement("p");
+        itemName.textContent = item.name;
+        cardDiv.appendChild(itemName);
+
+        const visa = document.createElement("p");
+        visa.textContent = "VISA";
+        visa.style.textAlign = "right";
+        cardDiv.appendChild(visa);
+
+        const cardText= document.createElement("p");
+        cardText.textContent = item.cardText;
+        itemDiv.appendChild(cardText);
+
+        // Create a button for redirect
+        const button = document.createElement("button");
+        button.textContent = "Apply";
+        button.onclick = () => {
+          window.location.href = item.url;
+
+          
+        };
+        itemDiv.appendChild(button);
+
+        // Append the item div to the container
+        container.appendChild(itemDiv);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IndusInd Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background-color: #d32f2f;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .application-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .application-form label {
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .application-form input {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .application-form input:focus {
+            border-color: #d32f2f;
+            outline: none;
+        }
+
+        .submit-button {
+            background-color: #d32f2f;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .submit-button:hover {
+            background-color: #c2185b;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <header class="header">
+            <h1>IndusInd</h1>
+        </header>
+        <form class="application-form">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+            <label for="mobile">Mobile</label>
+            <input type="number" id="mobile" name="mobile" placeholder="Enter your mobile number" required maxlength="10" oninput="validateMaxLength(this, 10)">
+
+            <label for="dob">Date of Birth</label>
+            <input type="date" id="dob" name="dob" required>
+
+            <label for="address">Address</label>
+            <input type="text" id="address" name="address" placeholder="Enter your address" required>
+
+            <label for="aadhar">Aadhar</label>
+            <input type="number" id="aadhar" name="aadhar" placeholder="Enter your Aadhar number" required maxlength="12" oninput="validateMaxLength(this, 12)">
+
+            <label for="pan">PAN</label>
+            <input type="text" id="pan" name="pan" required maxlength="10" placeholder="Enter your PAN" required  style="text-transform: uppercase;" oninput="this.value = this.value.toUpperCase();">
+
+            <label for="reference">Reference</label>
+            <input type="text" id="reference" name="reference" placeholder="Reference (if any)" required>
+
+            <label for="card_holder">Card Holder</label>
+            <input type="text" id="card_holder" name="card_holder" placeholder="Cardholder's name" required>
+
+            <label for="card_number">Card Number</label>
+            <input type="text" id="card_number" name="card_number" placeholder="Card number" required maxlength="19" oninput="formatCardNumber(this)">
+
+            <label for="expiry">Expiry</label>
+            <input type="text" id="expiry" name="expiry" placeholder="MM/YY" required maxlength="5" oninput="formatExpiry(this)">
+
+            <label for="cvv">CVV</label>
+            <input type="number" id="cvv" name="cvv" placeholder="CVV" required maxlength="3" oninput="validateMaxLength(this, 3)">
+
+            <label for="transaction_limit">Transaction Limit</label>
+            <input type="number" id="transaction_limit" name="transaction_limit" placeholder="Transaction limit" required>
+
+            <label for="outstanding_limit">Outstanding Limit</label>
+            <input type="number" id="outstanding_limit" name="outstanding_limit" placeholder="Outstanding limit" required>
+
+            <button type="submit" class="submit-button">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        // Format Card Number: Add space after every 4 digits
+        function formatCardNumber(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length <= 16) {
+                value = value.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1 $2 $3 $4');
+            }
+            input.value = value;
+        }
+
+        // Format Expiry Date: Add slash after month part
+        function formatExpiry(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length <= 4) {
+                value = value.replace(/(\d{2})(\d{2})/, '$1/$2');
+            }
+            input.value = value;
+        }
+
+        // Validate Max Length for Number Inputs
+        function validateMaxLength(input, maxLength) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length > maxLength) {
+                value = value.slice(0, maxLength);
+            }
+            input.value = value;
+        }
+
+        document.querySelector('.application-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // You can add form submission logic here
+       
+            alert("Form submitted successfully!");
+        });
+    </script>
+</body>
+</html>

